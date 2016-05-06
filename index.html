@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Your Local Weather App</title>
+
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="This page displays the local weather">
+    <meta name="author" content="Sekhar Kolli">
+
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" >
+	<link href="https://cdn.jsdelivr.net/animatecss/3.5.1/animate.min.css" rel="stylesheet" type="text/css" >
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.10/css/weather-icons.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.10/css/weather-icons-wind.min.css">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.10/font/weathericons-regular-webfont.eot">
+
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet">
+<!-- 	<link href='https://fonts.googleapis.com/css?family=Alex+Brush|Kaushan+Script|Josefin+Slab:600|Nunito:700' rel='stylesheet' type='text/css'> 
+ -->	
+	<link rel="stylesheet" type="text/css" href="myStyle.css">
+</head>
+
+<body>
+<nav class="navbar navbar-inverse  navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#LocalWeatherAppNavBar">
+				<span class="sr-only"> Toggle Navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>				
+			</button>
+		</div> <!-- .navbar-header -->
+			<a class="navbar-brand" href="#"> Local Weather </a>
+			<div id="LocalWeatherAppNavBar" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">Home</a></li>
+					<li><a href="#about">About</a></li>
+				</ul>
+			</div> <!-- .navbar-collapse -->
+	</div> <!-- .container -->
+</nav>
+	
+<div class="container topPadding30px">
+	<div class="starter-template">
+		
+	<section>
+	<h1> Your Local Weather... <i class="wi wi-day-sunny animated"></i></h2>
+	</section>
+
+	<section>
+		<h2> Name of your place</h2>
+	</section>
+
+	<section>
+		<h2>The icon corresponding to the local weather <i class="wi f00d"></i></h2>
+	</section>
+
+	<section>
+		<h3>The current temprature in <i class="wi wi-celsius"></i> <i class="wi wi-fahrenheit"></i></h3>
+	</section>
+
+
+
+	<section>
+	<ul>
+		<li>User Story: I can see the weather in my current location.
+		</li>
+		<li>User Story: I can see a different icon or background image (e.g. snowy mountain, hot desert) depending on the weather.
+		</li>
+		<li>User Story: I can push a button to toggle between Fahrenheit and Celsius.</li>
+	</ul>
+	</section>
+
+	<footer>
+		
+	</footer>
+
+</div> <!-- Main Div Container-fluid -->
+</div>
+
+<!-- All Scripts Come Here -->
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="myScript.js"></script>
+
+</body>
+</html>
