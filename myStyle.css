@@ -1,27 +1,86 @@
 /*myStyle.css*/
 /*Author : Sekhar Kolli*/
 
-.topPadding30px {
-	padding-top: 90px;
+.bottomPadding{
+	padding-bottom: 50px;
+	padding-top: 50px;
 }
 
 body {
-    position: absolute;
-    top: 0;
-    z-index: 10;
-    opacity: 90;
-    height: 100%;
-    width: 100%;
-/*    background-image: url(https://images.unsplash.com/photo-1454702762838-a6df8cc3517f?crop=entropy&fit=crop&fm=jpg&h=1000&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=1925);*/
-/*    background-image: url(https://images.unsplash.com/uploads/141273952449798e153d6/53d2aeda?crop=entropy&fit=crop&fm=jpg&h=1000&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=1925);*/
-    
+/*	position: absolute;
+	top: 0;
+	z-index: 10;
+	opacity: 90;
+	height: 100%;
+	width: 100%;*/
+	/*    background-image: url(https://images.unsplash.com/photo-1454702762838-a6df8cc3517f?crop=entropy&fit=crop&fm=jpg&h=1000&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=1925);*/
+	/*    background-image: url(https://images.unsplash.com/uploads/141273952449798e153d6/53d2aeda?crop=entropy&fit=crop&fm=jpg&h=1000&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=1925);*/
+	padding-bottom: 200px; 
+}
+
+.banner {
+	/*background-image: url(https://images.unsplash.com/uploads/141273952449798e153d6/53d2aeda?crop=entropy&fit=crop&fm=jpg&h=1000&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=1925);*/
+
 }
 
 .singlePageBackground {
-    position: absolute;
-    top: 0;
-    z-index: 10;
-    opacity: 0;
-    height: 100%;
-    width: 100%;
+	position: absolute;
+	top: 0;
+	z-index: 10;
+	opacity: 0;
+	height: 100%;
+	width: 100%;
+}
+
+#cityName {
+	font-family: 'Anton', sans-serif; 
+	/*font-family: 'Arya', sans-serif;*/
+	/*font-family: 'Oxygen', sans-serif;*/
+	/*font-family: 'Cabin', sans-serif;*/
+	/*font-family: 'Fjalla One', sans-serif;*/
+	/*font-family: 'Montserrat', sans-serif;*/
+
+	font-size: 6em;
+
+}
+
+#cityWeather{
+	font-family: 'Oxygen', sans-serif;
+	font-size: 2em;
+}
+
+#iconURL{
+    height:80px;
+    width:80px;
+}
+
+#cityIconPanel{
+	background-color: rgb(200,200,200);
+	width: 100px;
+	height: 100px;
+
+	background-size: 100px;
+
+}
+
+.animated{
+	-webkit-animation-iteration-count: 3; /* Chrome, Safari, Opera */
+	-webkit-animation-duration: 1s;
+  -webkit-animation-delay: 1s;
+    animation-iteration-count: 1;
+}
+
+#cityTemp {
+	font-family: 'Cabin', sans-serif;
+	font-size: 2em;
+}
+
+.tempUnits {
+	font-family: 'Cabin', sans-serif;
+	font-size: 2em;
+}
+
+.glyphicon-search {
+	color: white;
+	/*padding-right: 100px;*/
 }
