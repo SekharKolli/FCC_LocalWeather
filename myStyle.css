@@ -120,9 +120,19 @@ body {
 	color: red;
 }
 
+
 #cityCoords {
 	font-family: 'Exo', sans-serif;
 	font-size: 15px;
 
 }
 
+.searchIconText {
+	font-family: 'Anton', sans-serif; 
+	font-size: 1.6em;
+	color: white;
+}
+
+.searchIconText:hover{
+	color: red;
+}
