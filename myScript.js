@@ -26,9 +26,12 @@ function displayDateTime(utcString) {
 } //displayDateTime
 
 function displayTempInCelsius(tempKelvin) {
-	return (300-tempKelvin).toFixed(2);
+	return (300-tempKelvin).toFixed(2) + " °";
 }
 
+function displayTempInFarenheit(tempKelvin) {
+	return (9/5*(300 - tempKelvin) + 32).toFixed(2) + " °";
+}
 //----------------------------------------------------------------------------------------------
 
 $(document).ready(function(){
@@ -70,26 +73,44 @@ $.get(url, function (receivedData) {
 	console.log(receivedData);
 	openWeatherMapData = receivedData;
 
-	$('#locData').html("<ul> </ul>");
-	for(var prop in receivedData) {
-		if (typeof(receivedData[prop]) === Object) {
-			for(var pr in receivedData[prop]) {
-				// console.log("Going deep : "+prop+"."+ pr +" "+receivedData[prop][pr]);
-				//$('#locData ul').append("<li>"+prop+"."+ pr +" "+receivedData[prop][pr]+"</li>");
-			}		
-		} else {
-			// console.log("Data : "+prop +" "+receivedData[prop]);
-			$('#locData ul').append("<li>"+prop +" "+receivedData[prop]+"</li>");
-		}
-	};
+	// $('#locData').html("<ul> </ul>");
+	// for(var prop in receivedData) {
+	// 	if (typeof(receivedData[prop]) === Object) {
+	// 		for(var pr in receivedData[prop]) {
+	// 			// console.log("Going deep : "+prop+"."+ pr +" "+receivedData[prop][pr]);
+	// 			//$('#locData ul').append("<li>"+prop+"."+ pr +" "+receivedData[prop][pr]+"</li>");
+	// 		}		
+	// 	} else {
+	// 		// console.log("Data : "+prop +" "+receivedData[prop]);
+	// 		$('#locData ul').append("<li>"+prop +" "+receivedData[prop]+"</li>");
+	// 	}
+	// };
 
 	$("#cityName").html(openWeatherMapData.name 
 		+", <small>" 
 		+openWeatherMapData.sys.country 
 		+"</small>  " 
 		+"<img src='http://openweathermap.org/images/flags/ca.png' width=20px>");
-	$("#cityWeather").text(openWeatherMapData.weather[0].description);
-	$("#cityTemp").text(displayTempInCelsius(openWeatherMapData.main.temp));
+		$("#cityWeather").text(openWeatherMapData.weather[0].description);
+		$("#cityTemp").text(displayTempInCelsius(openWeatherMapData.main.temp));
+
+
+	$(".secondUnit").on("click",function () {
+		
+		var whichUnit = $("span.secondUnit").html();
+
+		if (whichUnit === "F") {
+			$("#cityTemp").text(displayTempInFarenheit(openWeatherMapData.main.temp));
+			$("span.firstUnit").html("F");
+			$("span.secondUnit").html("C");
+		} else {
+			$("#cityTemp").text(displayTempInCelsius(openWeatherMapData.main.temp));
+			$("span.firstUnit").html("C");
+			$("span.secondUnit").html("F");
+		}
+
+	});
+
 
 	//http://openweathermap.org/img/w/04d.png
 
@@ -101,7 +122,7 @@ $.get(url, function (receivedData) {
 	iconURL = "url("+iconURL+")";
 	$("#cityIconPanel").css("background-image",iconURL);
 
-	animElemWithAnimated("#cityName","lightSpeedIn");
+	animElemWithAnimated("#cityName","pulse");
 	// animElemWithAnimated("#cityIconPanel","flip");
 
 	console.log(displayDateTime(openWeatherMapData.dt));

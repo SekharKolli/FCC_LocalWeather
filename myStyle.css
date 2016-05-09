@@ -45,8 +45,16 @@ body {
 }
 
 #cityWeather{
-	font-family: 'Oxygen', sans-serif;
-	font-size: 2em;
+	/*font-family: 'Oxygen', sans-serif;*/
+	/*font-family: 'Arya', sans-serif;*/
+	/*font-family: 'Cabin', sans-serif;*/
+	/*font-family: 'Fjalla One', sans-serif;*/
+	/*font-family: 'Montserrat', sans-serif;*/
+
+	/*font-family: 'Exo', sans-serif;*/
+	/*font-family: 'Cabin', sans-serif;*/
+	font-family: 'Allura', cursive;
+	font-size: 50px;
 }
 
 #iconURL{
@@ -55,11 +63,15 @@ body {
 }
 
 #cityIconPanel{
-	background-color: rgb(200,200,200);
-	width: 100px;
-	height: 100px;
+	/*background-color: rgb(200,200,200);*/
+	background-size: 135px;
+	width: 135px;
+	height: 135px;
+	border: 20px;
+	border-color: lightgrey;
+	border-width: 3px;
+	border-style: solid;
 
-	background-size: 100px;
 
 }
 
@@ -71,16 +83,46 @@ body {
 }
 
 #cityTemp {
-	font-family: 'Cabin', sans-serif;
-	font-size: 2em;
+	/*font-family: 'Arya', sans-serif;*/
+	/*font-family: 'Oxygen', sans-serif;*/
+	/*font-family: 'Cabin', sans-serif;*/
+	/*font-family: 'Fjalla One', sans-serif;*/
+	/*font-family: 'Montserrat', sans-serif;*/
+
+	/*font-family: 'Exo', sans-serif;*/
+	/*font-family: 'Cabin', sans-serif;*/
+	font-family: 'Syncopate', sans-serif;
+	font-size: 1.5em;
 }
 
 .tempUnits {
-	font-family: 'Cabin', sans-serif;
-	font-size: 2em;
+	font-family: 'Open Sans Condensed', sans-serif;
+	/*font-family: 'Six Caps', sans-serif;*/
+	/*font-family: 'Cabin', sans-serif;*/
+	font-size: 1em;
 }
 
 .glyphicon-search {
 	color: white;
 	/*padding-right: 100px;*/
 }
+
+.firstUnit {
+	color: black;
+
+}
+
+.secondUnit{
+	color: lightgrey;
+}
+
+.secondUnit:hover{
+	color: red;
+}
+
+#cityCoords {
+	font-family: 'Exo', sans-serif;
+	font-size: 15px;
+
+}
+
