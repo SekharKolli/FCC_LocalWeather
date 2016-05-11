@@ -21,84 +21,92 @@
 	<link href='https://fonts.googleapis.com/css?family=Anton|Oxygen|Play|Cabin|Open+Sans+Condensed:700|Exo|Syncopate|Six+Caps|Allura' rel='stylesheet' type='text/css'>
 
 
-<link rel="stylesheet" type="text/css" href="myStyle.css">
+	<link rel="stylesheet" type="text/css" href="myStyle.css">
 </head>
 
 <body>
-<header class="navbar navbar-inverse navbar-fixed-bottom" role="banner">
-	<div class="container bottomPadding">
-		<h3><span class="searchIconText"><span class="glyphicon glyphicon-search"></span> <span>Click here to find another city's weather</span></span></h3>
-	</div>
-</header>
+	<header class="navbar navbar-inverse navbar-fixed-bottom" role="banner">
+		<div class="container bottomPadding">
+			<!-- <h3><span class="searchIconText"><span class="glyphicon glyphicon-search"></span> <span>Click here to find another city's weather</span></span></h3> -->
+
+			<!-- Button to Launch Modal window -->
+			<button class="btn btn-lg btn-info" id="searchCityButton" data-toggle="modal" data-target="#mySearchModal">
+				<span class="glyphicon glyphicon-search"></span>
+				Click here to find another city's weather
+			</button>
+		</div>
+	</header>
 
 
 	<div class="container">
-			<div class="row banner">
-				<div class="col-sm-12">
-					<h2 id="cityName"><img src="#" align="center" alt="Flag"></h2>
-				</div>
+
+		<div class="row banner">
+			<div class="col-sm-12">
+			<div class="page-header">
+				<h1 id="cityName"><img src="#"></h1>
 			</div>
+			</div>
+		</div>
 
-			<div class="row">
-				<div class="col-sm-6">
+		<div class="row muteIfError">
+			<div class="col-sm-5">
+				<section>
 					<section>
-						<section>
-							<h1>
-								<span id="cityTemp"> The current temprature in &deg;</span>
-								<span class="tempUnits firstUnit">C</span>
-								<span> &nbsp;|&nbsp;</span> 
-								<span class="tempUnits secondUnit">F</span>
-							</h1>
-						</section>
-						<div class="panel" id="cityIconPanel"></div>
-						<div id="cityWeather">cityWeather comes here...</div>
+						<h1>
+							<span id="cityTemp"></span>
+							<span class="tempUnits firstUnit">C</span>
+							<span> &nbsp;|&nbsp;</span>
+							<span class="tempUnits secondUnit">F</span>
+						</h1>
+					</section>
+					<div class="panel" id="cityIconPanel"></div>
+					<div id="cityWeather"></div>
 
-					</section>				
-				</div>
-				<div class="col-sm-6">
-					<div class="panel panel-default">
-						<div>
-							<div class="panel-body" id="cityCoords">cityCoords comes here...</div>
-						</div>
+				</section>
+			</div>
+			<div class="col-sm-7">
+				<div class="panel panel-default">
+					<div>
+						<div id="cityCoords"></div>
 					</div>
 				</div>
 			</div>
+		</div>
 
 
-		<!-- 	<section>
-				<div>Here is the list of data collected</div>
-				<div id="locData">
+			<!-- mySearchModal -->
+			<div id="mySearchModal" class="modal fade" role="dialog">
+			<div class="modal-dialog modal-lg">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-body">
+					<br>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<!-- <label for="searchText">City Name:</label>
+					<input id="searchText" type="text"></input> -->
+					<br><br>
+					<div class="row">
+					<div class="col-lg-6">
+					<div class="input-group">
+					<input type="text" class="form-control" placeholder="Enter City Name..." id="searchText">
+						<span class="input-group-btn">
+							<button class="btn btn-info" type="button">Weather Right Now?</button>
+						</span>
+					</div><!-- /input-group -->
+					</div><!-- /.col-lg-6 -->
+					</div><!-- /.row -->
 				</div>
-			</section> -->
+			</div>
+			</div>
+			</div>
 
-			<section>
-				<h2>The icon corresponding to the local weather <i class="wi f00d"></i></h2>
-
-			</section>
-
-
-
-
-			<section>
-				<ul>
-					<li>User Story: I can see the weather in my current location.
-					</li>
-					<li>User Story: I can see a different icon or background image (e.g. snowy mountain, hot desert) depending on the weather.
-					</li>
-					<li>User Story: I can push a button to toggle between Fahrenheit and Celsius.</li>
-				</ul>
-			</section>
-
-			<footer>
-
-			</footer>
 
 		</div> <!-- Main Div Container -->
 
 		<!-- All Scripts Come Here -->
-		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-		<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="myScript.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<script src="myScript.js"></script>
 
 	</body>
 	</html>

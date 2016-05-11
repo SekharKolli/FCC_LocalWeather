@@ -12,7 +12,7 @@ function animElemWithAnimated(elem, animClass) {
 // This function takes in a UTC unix time and converts it User readable string
 // Function inspired by : http://stackoverflow.com/questions/5722919/jquery-convert-number-to-date
 function displayDateTime(utcString) {
-//	console.log(utcString);
+	//	console.log(utcString);
 
 	var myObj = $.parseJSON('{"date_created":"'+utcString+'"}'), 
 	myDate = new Date(1000*myObj.date_created);
@@ -21,18 +21,31 @@ function displayDateTime(utcString) {
 	// console.log(myDate.toLocaleString());
 	// console.log(myDate.toUTCString());
 
-	console.log("displayDateTime executed...");
+	// console.log("displayDateTime executed...");
 	return myDate.toString();
 } //displayDateTime
 
-//converts Kelvin to Celsius
-function displayTempInCelsius(tempKelvin) {
-	return (300-tempKelvin).toFixed(2) + " °";
-} //displayTempInCelsius
+// Display the contents of an object
+function displayObjectContents(receivedData) {
+	
+	// $('#locData').html("<ul> </ul>");
+	for(var prop in receivedData) {
+		if (typeof(receivedData[prop]) === Object) {
+			for(var pr in receivedData[prop]) {
+				console.log("Going deep : "+prop+"."+ pr +" "+receivedData[prop][pr]);
+				//$('#locData ul').append("<li>"+prop+"."+ pr +" "+receivedData[prop][pr]+"</li>");
+			}		
+		} else {
+			console.log("Data : "+prop +" "+receivedData[prop]);
+			// $('#locData ul').append("<li>"+prop +" "+receivedData[prop]+"</li>");
+		}
+	};
+} // displayObjectContents(receivedData)
 
-// converts Kelvin to Farenheit
-function displayTempInFarenheit(tempKelvin) {
-	return (9/5*(300 - tempKelvin) + 32).toFixed(2) + " °";
+// converts Kelvin to Farenhei
+function displayTempInFarenheit(tempCelsius) {
+	// send temprature in farenheit
+	return (9/5*(tempCelsius) + 32).toFixed(2);
 } //displayTempInFarenheit
 
 // Function creates the required URL for use in the get call
@@ -55,76 +68,47 @@ function getOpenWeatherURL(coordinates) {
 	url += "&lon=";
 	url += coordinates.longitude;
 	url += appIdStr;
+	url += "&units=metric";
 
 	console.log(url);
 
 	return url;
 } // getOpenWeatherURL()
 
-//----------------------------------------------------------------------------------------------
-$(document).ready(function(){
-	var openWeatherMapData; // variable that will hold the Map Data received from Open Weather
-	var currLocation = {latitude:43.7001100, longitude:-79.4163000}; //hardcoding for Toronto for missing data and to test if local browser picks up data
+function paintPage(openWeatherMapData) {
+	$("#cityName").html(openWeatherMapData.name 
+		+", <small>" 
+		+openWeatherMapData.sys.country 
+		+"</small>  " 
+		+"<img src='http://openweathermap.org/images/flags/"
+		+(openWeatherMapData.sys.country).toLowerCase()
+		+".png' width=20px>");
 
-	// Getting the co-ordinates from the browser / navigator
-	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(function(position){
-	        //$("#locData").html("latitude : " + position.coords.latitude + " <br> longitude : " + position.coords.longitude);
-	        
-	        currLocation.latitude = position.coords.latitude;
-	        currLocation.longitude = position.coords.longitude;
-
-	        console.log("coordinates info collected : ["+currLocation.latitude+" ,"+currLocation.longitude+"]");
-
-		}); //getCurrentPosition(function(postion) callback
-	} // navigator.geolocation
-
-	var owUrl = getOpenWeatherURL(currLocation); // Get the URL to use for generating data
-
-	$.get(owUrl, function (receivedData) {
-		console.log(receivedData);
-		openWeatherMapData = receivedData;
-
-		$('#locData').html("<ul> </ul>");
-		for(var prop in receivedData) {
-			if (typeof(receivedData[prop]) === Object) {
-				for(var pr in receivedData[prop]) {
-					console.log("Going deep : "+prop+"."+ pr +" "+receivedData[prop][pr]);
-					//$('#locData ul').append("<li>"+prop+"."+ pr +" "+receivedData[prop][pr]+"</li>");
-				}		
-			} else {
-				console.log("Data : "+prop +" "+receivedData[prop]);
-				// $('#locData ul').append("<li>"+prop +" "+receivedData[prop]+"</li>");
-			}
-		};
-
-		$("#cityName").html(openWeatherMapData.name 
-			+", <small>" 
-			+openWeatherMapData.sys.country 
-			+"</small>  " 
-			+"<img src='http://openweathermap.org/images/flags/"
-			+(openWeatherMapData.sys.country).toLowerCase() 
-			+".png' width=20px>");
-
-		$("#cityWeather").text(openWeatherMapData.weather[0].description);
-		$("#cityTemp").text(displayTempInCelsius(openWeatherMapData.main.temp));
+	$("#cityWeather").text(openWeatherMapData.weather[0].description);
+	$("#cityTemp").text(openWeatherMapData.main.temp + " °");
 
 
-		$(".secondUnit").on("click",function () {
-			
-			var whichUnit = $("span.secondUnit").html();
+	$(".secondUnit").on("click",function () {
 
-			if (whichUnit === "F") {
-				$("#cityTemp").text(displayTempInFarenheit(openWeatherMapData.main.temp));
-				$("span.firstUnit").html("F");
-				$("span.secondUnit").html("C");
-			} else {
-				$("#cityTemp").text(displayTempInCelsius(openWeatherMapData.main.temp));
-				$("span.firstUnit").html("C");
-				$("span.secondUnit").html("F");
-			}
+		var whichUnit = $("span.secondUnit").html();
 
-		});
+		if (whichUnit === "F") {
+			$("#cityTemp").text(displayTempInFarenheit(openWeatherMapData.main.temp) + " °");
+			$("span.firstUnit").html("F");
+			$("span.secondUnit").html("C");
+			$("#cityCoords li:nth-child(8)").text("temp : "		+displayTempInFarenheit(openWeatherMapData.main.temp)     +" °F");
+			$("#cityCoords li:nth-child(9)").text("temp_max : "	+displayTempInFarenheit(openWeatherMapData.main.temp_max) +" °F");
+			$("#cityCoords li:nth-child(10)").text("temp_min : "	+displayTempInFarenheit(openWeatherMapData.main.temp_min) +" °F");
+		} else {
+			$("#cityTemp").text(openWeatherMapData.main.temp + " °");
+			$("span.firstUnit").html("C");
+			$("span.secondUnit").html("F");
+			$("#cityCoords li:nth-child(8)").text("temp : "		+openWeatherMapData.main.temp     +" °C");
+			$("#cityCoords li:nth-child(9)").text("temp_max : "	+openWeatherMapData.main.temp_max +" °C");
+			$("#cityCoords li:nth-child(10)").text("temp_min : "	+openWeatherMapData.main.temp_min +" °C");
+		}
+
+	});
 
 
 		//http://openweathermap.org/img/w/04d.png
@@ -137,26 +121,70 @@ $(document).ready(function(){
 		iconURL = "url("+iconURL+")";
 		$("#cityIconPanel").css("background-image",iconURL);
 
-		animElemWithAnimated("#cityName","pulse");
+		animElemWithAnimated("#cityWeather","bounceInDown");
 		// animElemWithAnimated("#cityIconPanel","flip");
 
 		console.log(displayDateTime(openWeatherMapData.dt));
 
-		$("#cityCoords").html("<li> Time of data calculation : " + displayDateTime(openWeatherMapData.dt) +"</li>");
+		$("#cityCoords").html("<li class='list-group-item'> Time of data calculation : " + displayDateTime(openWeatherMapData.dt) +"</li>");
+		$("#cityCoords").append("<li class='list-group-item'> sunrise : "	+displayDateTime(openWeatherMapData.sys.sunrise)		+"</li>");
+		$("#cityCoords").append("<li class='list-group-item'> sunset : "	+displayDateTime(openWeatherMapData.sys.sunset)		+"</li>");
 
-		$("#cityCoords").append("<li> Lati : " 		+openWeatherMapData.coord.lat 		+"</li>");
-		$("#cityCoords").append("<li> Long : " 		+openWeatherMapData.coord.lon 		+"</li>");
-		$("#cityCoords").append("<li> grnd_level : "+openWeatherMapData.main.grnd_level	+"</li>");
-		$("#cityCoords").append("<li> humidity : "	+openWeatherMapData.main.humidity	+"</li>");
-		$("#cityCoords").append("<li> pressure : "	+openWeatherMapData.main.pressure	+"</li>");
-		$("#cityCoords").append("<li> sea_level : "	+openWeatherMapData.main.sea_level	+"</li>");
-		$("#cityCoords").append("<li> temp : "		+openWeatherMapData.main.temp		+"</li>");
-		$("#cityCoords").append("<li> temp_max : "	+openWeatherMapData.main.temp_max	+"</li>");
-		$("#cityCoords").append("<li> temp_min : "	+openWeatherMapData.main.temp_min	+"</li>");
-		$("#cityCoords").append("<li> sunrise : "	+displayDateTime(openWeatherMapData.sys.sunrise)		+"</li>");
-		$("#cityCoords").append("<li> sunset : "	+displayDateTime(openWeatherMapData.sys.sunset)		+"</li>");
+		$("#cityCoords").append("<li class='list-group-item'> Lati : " 		+openWeatherMapData.coord.lat 		+"</li>");
+		$("#cityCoords").append("<li class='list-group-item'> Long : " 		+openWeatherMapData.coord.lon 		+"</li>");
+		$("#cityCoords").append("<li class='list-group-item'> grnd_level : "+openWeatherMapData.main.grnd_level	+"</li>");
+		$("#cityCoords").append("<li class='list-group-item'> humidity : "	+openWeatherMapData.main.humidity	+" %</li>");
+		$("#cityCoords").append("<li class='list-group-item'> pressure : "	+openWeatherMapData.main.pressure	+" hpa</li>");
+		$("#cityCoords").append("<li class='list-group-item'> sea_level : "	+openWeatherMapData.main.sea_level	+"</li>");
+		$("#cityCoords").append("<li class='list-group-item'> temp : "		+openWeatherMapData.main.temp     +" °C" +"</li>");
+		$("#cityCoords").append("<li class='list-group-item'> temp_max : "	+openWeatherMapData.main.temp_max +" °C" +"</li>");
+		$("#cityCoords").append("<li class='list-group-item'> temp_min : "	+openWeatherMapData.main.temp_min +" °C" +"</li>");
 		//openWeatherMapData.sys.sunrise
 
-		console.log("get() function executed...")
+		console.log("get() function executed...");
+} // function paintPage(openWeatherMapData) 
+
+// Asks the browser for co-ordinates
+function navigatorCoordinates() {
+	var currLocation = {latitude:43.7001100, longitude:-79.4163000}; //hardcoding for Toronto for missing data and to test if local browser picks up data
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(function(position){
+	        //$("#locData").html("latitude : " + position.coords.latitude + " <br> longitude : " + position.coords.longitude);
+	        
+	        currLocation.latitude = position.coords.latitude;
+	        currLocation.longitude = position.coords.longitude;
+
+	        console.log("coordinates info collected : ["+currLocation.latitude+" ,"+currLocation.longitude+"]");
+
+		}); //getCurrentPosition(function(postion) callback
+
+		return currLocation;
+	} // if (navigator.geolocation)
+} //navigatorCoordinates()
+
+//----------------------------------------------------------------------------------------------
+$(document).ready(function(){
+	// var openWeatherMapData; // variable that will hold the Map Data received from Open Weather
+	var currLocation = navigatorCoordinates(); 
+	// var currLocation = {latitude:"--43.7001100", longitude:"--79.4163000"}; // Passing incorrect values for testing
+
+	// Getting the co-ordinates from the browser / navigator
+
+
+	var owUrl = getOpenWeatherURL(currLocation); // Get the URL to use for generating data
+
+	$.get(owUrl, function (receivedData) {
+		console.log(receivedData);
+
+		if (receivedData.cod === "404") { // Object received with 404 error
+			console.log("Error : City Not Found. API used: "+owUrl);
+			$("#cityName").html("<h1>City Not Found!! <small>Try Again...</small></h1> ");
+			$(".muteIfError").html("<h3>  Offending URL:</h3><h4>"+ owUrl +"</h4>");
+		} else {
+			paintPage(receivedData); // Valid Object received from Open Weather 
+		}
+
 	}); //get()
+
 }); // $(document).ready(function(){
+
