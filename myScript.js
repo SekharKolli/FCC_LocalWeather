@@ -49,7 +49,7 @@ function displayTempInFarenheit(tempCelsius) {
 } //displayTempInFarenheit
 
 // Function creates the required URL for use in the get call
-function getOpenWeatherURL(coordinates) {
+function getOpenWeatherURL(queryValue) {
 
 	// Open Weather App Id generated using lat and lon
 	// http://api.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=d2e2fa6910b1950870f71d164580f721
@@ -63,10 +63,17 @@ function getOpenWeatherURL(coordinates) {
 	var appIdStr = "&appid=d2e2fa6910b1950870f71d164580f721"; // appid receied for skolli.bb10@gmail.com email
 	var url = "http://api.openweathermap.org/data/2.5/weather?";
 
-	url += "lat=";
-	url += coordinates.latitude;
-	url += "&lon=";
-	url += coordinates.longitude;
+	console.log("Found the received value in getOpenWeatherURL is : "+typeof(queryValue));
+
+	if (queryValue.latitude) { // meaning a coordinate object has been sent
+		url += "lat=";
+		url += queryValue.latitude;
+		url += "&lon=";
+		url += queryValue.longitude;
+	} else { // a city name has been sent
+		url += "q=";
+		url += queryValue;
+	}
 	url += appIdStr;
 	url += "&units=metric";
 
@@ -75,7 +82,16 @@ function getOpenWeatherURL(coordinates) {
 	return url;
 } // getOpenWeatherURL()
 
-function paintPage(openWeatherMapData) {
+function paintPage(openWeatherMapData, owUrl) {
+	// $(".openWeatherUrlInFooter").text("URL Used: "+owUrl);
+
+	if (openWeatherMapData.cod === "404") { // Object received with 404 error
+		console.log("Error : City Not Found. API used: "+owUrl);
+		$("#cityName").html("<h1>City Not Found!! <small>Try Again...</small></h1> ");
+		$(".muteIfError").html("<h3>  Offending URL:</h3><h4>"+ owUrl +"</h4>");
+		return false;
+	}
+
 	$("#cityName").html(openWeatherMapData.name
 		+", <small>"
 		+openWeatherMapData.sys.country
@@ -121,7 +137,7 @@ function paintPage(openWeatherMapData) {
 		iconURL = "url("+iconURL+")";
 		$("#cityIconPanel").css("background-image",iconURL);
 
-		animElemWithAnimated("#cityWeather","bounceInDown");
+		// animElemWithAnimated("#cityWeather","bounceInDown");
 		// animElemWithAnimated("#cityIconPanel","flip");
 
 		console.log(displayDateTime(openWeatherMapData.dt));
@@ -142,11 +158,20 @@ function paintPage(openWeatherMapData) {
 		//openWeatherMapData.sys.sunrise
 
 		console.log("get() function executed...");
-	} // function paintPage(openWeatherMapData)
+} // function paintPage(openWeatherMapData)
 
+	// combining calls into one convenience function
+function reachOpenWeatherDisplayWeather(input) {
+		var owUrl = getOpenWeatherURL(input); // Get the URL to use for generating data
+		$.get(owUrl, function (receivedData) {
+			console.log(receivedData);
+			paintPage(receivedData, owUrl); // Valid Object received from Open Weather
+		}); //get()
+	}
 	// Asks the browser for co-ordinates
-	function navigatorCoordinates() {
+function navigatorCoordinates() {
 		var currLocation = {latitude:43.7001100, longitude:-79.4163000}; //hardcoding for Toronto for missing data and to test if local browser picks up data
+
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(function(position){
 				//$("#locData").html("latitude : " + position.coords.latitude + " <br> longitude : " + position.coords.longitude);
@@ -162,11 +187,12 @@ function paintPage(openWeatherMapData) {
 		} // if (navigator.geolocation)
 	} //navigatorCoordinates()
 
-	//----------------------------------------------------------------------------------------------
 	$(document).ready(function(){
+		//----------------------------------------------------------------------------------------------
 		// var openWeatherMapData; // variable that will hold the Map Data received from Open Weather
-		var currLocation = navigatorCoordinates();
 		// var currLocation = {latitude:"--43.7001100", longitude:"--79.4163000"}; // Passing incorrect values for testing
+		var currLocation = navigatorCoordinates();
+		reachOpenWeatherDisplayWeather(currLocation);
 
 		// $("mySearchModal").modal('show');
 
@@ -175,31 +201,31 @@ function paintPage(openWeatherMapData) {
 		});
 
 		$('#goButton').on('click',function () {
+			// console.log(cityInput);
 			var cityInput = $('#searchText').val();
-			console.log(cityInput);
-
-			if(isValid(cityInput)) {
-				// close the modal
-				// call the Open Weather Api 
-			}
-
+			$('#mySearchModal').modal('toggle');
+			reachOpenWeatherDisplayWeather(cityInput);
+			$('#searchText').val("");
 		});
 
-		var owUrl = getOpenWeatherURL(currLocation); // Get the URL to use for generating data
+		$('#searchText').bind("enterKey",function(e){
+			var cityInput = $('#searchText').val();
+			$('#mySearchModal').modal('toggle');
+			reachOpenWeatherDisplayWeather(cityInput);
+			$('#searchText').val("");
+		});
 
-		$.get(owUrl, function (receivedData) {
-			console.log(receivedData);
-
-			if (receivedData.cod === "404") { // Object received with 404 error
-				console.log("Error : City Not Found. API used: "+owUrl);
-				$("#cityName").html("<h1>City Not Found!! <small>Try Again...</small></h1> ");
-				$(".muteIfError").html("<h3>  Offending URL:</h3><h4>"+ owUrl +"</h4>");
-			} else {
-				paintPage(receivedData); // Valid Object received from Open Weather
+		$('#searchText').keyup(function(e){
+			if(e.keyCode == 13)	{
+				$(this).trigger("enterKey");
 			}
+		});
 
-		}); //get()
-
+		$('#pickMyCity').on('click', function() {
+			$('#mySearchModal').modal('toggle');
+			reachOpenWeatherDisplayWeather(navigatorCoordinates());
+			$('#searchText').val("");
+		});
 	}); // $(document).ready(function(){
 
 		//

@@ -69,11 +69,15 @@ body {
 	height: 135px;
 	border: 20px;
 	border-color: lightgrey;
-	border-width: 3px;
-	border-style: solid;
+	border-width: 1px;
 
+	transition: all 1s;
 
 }
+#cityIconPanel:hover{
+	border-style: solid;
+}
+
 
 .animated{
 	-webkit-animation-iteration-count: 3; /* Chrome, Safari, Opera */
@@ -167,4 +171,15 @@ div#mySearchModal {
 		margin-left: 22px;
 		margin-right: 22px;
 }
+
+.openWeatherUrlInFooter{
+	color: black;
+	padding-top: 10px;
+	position: relative;
+	transition: all 1s;
+}
+.openWeatherUrlInFooter:hover{
+	color: white;
+}
+
 /* Items put here are for the model popup*/

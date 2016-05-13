@@ -34,6 +34,7 @@
 				<span class="glyphicon glyphicon-search"></span>
 				Click here to find another city's weather
 			</button>
+			<div class="openWeatherUrlInFooter"></div>
 		</div>
 	</header>
 
@@ -59,7 +60,7 @@
 							<span class="tempUnits secondUnit">F</span>
 						</h1>
 					</section>
-					<div class="panel" id="cityIconPanel"></div>
+					<div id="cityIconPanel"></div>
 					<div id="cityWeather"></div>
 
 				</section>
@@ -80,7 +81,7 @@
 		  <div class="modal-dialog">
 		    <div class="modal-content">
 		      <div class="modal-header">
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:red"><span aria-hidden="true">&times;</span></button>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:red" title="Close this modal" ><span aria-hidden="true">&times;</span></button>
 		        <h4 class="modal-title"> </h4>
 		      </div>
 		      <div class="modal-body">
@@ -98,8 +99,8 @@
 		      </div>
 					<div class="modal-footer">
 							<span id="searchResults"></span>
-							<button type="button" class="btn btn-default"> Auto Pick City </button>
-        			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							<button type="button" id="pickMyCity"class="btn btn-default" title="Will work if your Browser Location tracking is turned 'ON'"> Pick My City </button>
+        			<button type="button" class="btn btn-default" title="Close this modal" data-dismiss="modal">Close</button>
 					</div>
 		    </div><!-- /.modal-content -->
 		  </div><!-- /.modal-dialog -->
