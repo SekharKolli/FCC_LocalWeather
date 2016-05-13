@@ -15,7 +15,7 @@ body {
 	width: 100%;*/
 	/*    background-image: url(https://images.unsplash.com/photo-1454702762838-a6df8cc3517f?crop=entropy&fit=crop&fm=jpg&h=1000&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=1925);*/
 	/*    background-image: url(https://images.unsplash.com/uploads/141273952449798e153d6/53d2aeda?crop=entropy&fit=crop&fm=jpg&h=1000&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=1925);*/
-	padding-bottom: 200px; 
+	padding-bottom: 200px;
 }
 
 .banner {
@@ -33,7 +33,7 @@ body {
 }
 
 #cityName {
-	font-family: 'Anton', sans-serif; 
+	font-family: 'Anton', sans-serif;
 	/*font-family: 'Arya', sans-serif;*/
 	/*font-family: 'Oxygen', sans-serif;*/
 	/*font-family: 'Cabin', sans-serif;*/
@@ -100,6 +100,7 @@ body {
 	/*font-family: 'Six Caps', sans-serif;*/
 	/*font-family: 'Cabin', sans-serif;*/
 	font-size: 1em;
+	transition: all .5s;
 }
 
 .glyphicon-search {
@@ -118,6 +119,7 @@ body {
 
 .secondUnit:hover{
 	color: red;
+	background: lightgrey;
 }
 
 
@@ -128,7 +130,7 @@ body {
 }
 
 .searchIconText {
-	font-family: 'Anton', sans-serif; 
+	font-family: 'Anton', sans-serif;
 	font-size: 1.6em;
 	color: white;
 }
@@ -136,3 +138,33 @@ body {
 .searchIconText:hover{
 	color: red;
 }
+
+li {
+	padding: 0;
+	transition: all 1s;
+}
+
+.list-group-item{
+	padding: 7px;
+	text-transform: capitalize;
+	transition: all 1.5s;
+}
+
+.list-group-item:hover{
+	/*background-color: #f6f6f6;*/
+	background-color: black;
+	text-transform:uppercase;
+	color: white;
+}
+
+div#mySearchModal {
+    position: relative;
+}
+
+.myForm {
+	  /*position: relative;*/
+    /*margin: -20px;*/
+		margin-left: 22px;
+		margin-right: 22px;
+}
+/* Items put here are for the model popup*/

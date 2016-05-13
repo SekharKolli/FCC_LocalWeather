@@ -42,9 +42,9 @@
 
 		<div class="row banner">
 			<div class="col-sm-12">
-			<div class="page-header">
-				<h1 id="cityName"><img src="#"></h1>
-			</div>
+				<div class="page-header">
+					<h1 id="cityName"><img src="#"></h1>
+				</div>
 			</div>
 		</div>
 
@@ -74,39 +74,43 @@
 		</div>
 
 
-			<!-- mySearchModal -->
-			<div id="mySearchModal" class="modal fade" role="dialog">
-			<div class="modal-dialog modal-lg">
-			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-body">
-					<br>
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<!-- <label for="searchText">City Name:</label>
-					<input id="searchText" type="text"></input> -->
-					<br><br>
-					<div class="row">
-					<div class="col-lg-6">
-					<div class="input-group">
-					<input type="text" class="form-control" placeholder="Enter City Name..." id="searchText">
-						<span class="input-group-btn">
-							<button class="btn btn-info" type="button">Weather Right Now?</button>
-						</span>
-					</div><!-- /input-group -->
-					</div><!-- /.col-lg-6 -->
-					</div><!-- /.row -->
-				</div>
-			</div>
-			</div>
-			</div>
+		<!-- mySearchModal -->
+		<!-- <div id="mySearchModal" class="modal fade" role="dialog"> -->
+		<div id="mySearchModal" class="modal fade" tabindex="-1" role="dialog">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:red"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title"> </h4>
+		      </div>
+		      <div class="modal-body">
+						<div class="row">
+							<div class="myForm">
+								<label for="searchText"> Enter City Here...</label>
+								<div class="input-group">
+									<input class="form-control" 		type="text" 	id="searchText" name="searchText" value="">
+									<span class="input-group-btn">
+										<button  class="btn btn-primary" type="button" id="goButton">Go!</button>
+									</span>
+								</div>
+							</div>
+						</div>
+		      </div>
+					<div class="modal-footer">
+							<span id="searchResults"></span>
+							<button type="button" class="btn btn-default"> Auto Pick City </button>
+        			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
 
+	</div> <!-- Main Div Container -->
 
-		</div> <!-- Main Div Container -->
+	<!-- All Scripts Come Here -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script src="myScript.js"></script>
 
-		<!-- All Scripts Come Here -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-		<script src="myScript.js"></script>
-
-	</body>
-	</html>
+</body>
+</html>
